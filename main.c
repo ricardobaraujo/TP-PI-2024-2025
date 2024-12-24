@@ -1,8 +1,8 @@
 /**
  * @file main.c
  * @author Ricardo Araújo (a21150@alunos.ipca.pt)
- * @brief teste
- * @version 0.1
+ * @brief projeto de gestão de senhas e funcionarios
+ * @version 0.2
  * @date 24-12-2024
  * 
  * @copyright Copyright (c) 2024
@@ -33,9 +33,15 @@ int main() {
                 listar_func(func, qnt_func);
                 break;
             case 5:
-                qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
+                qnt_ementa = ler_file_ementa(ementa, qnt_ementa);
                 break;
             case 6:
+                guardar_file_ementa(ementa, qnt_ementa);
+                break;
+            case 7:
+                qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
+                break;
+            case 8:
                 listar_ementas(ementa, qnt_ementa);
                 break;
             default:
@@ -60,14 +66,16 @@ int menu() {
         printf("2 - Guardar dados dos funcionarios no ficheiro\n");
         printf("3 - Introduzir funcionario\n");
         printf("4 - Listar todos os funcionarios\n");
-        printf("5 - Introduzir ementa\n");
-        printf("6 - Listar todas as ementas\n");
+        printf("5 - Ler dados das ementas do ficheiro\n");
+        printf("6 - Guardar dados das ementas no ficheiro\n");
+        printf("7 - Introduzir ementa\n");
+        printf("8 - Listar todas as ementas\n");
         printf("0 - Sair\n");
         printf("opção? ");
         scanf("%d", &op);
         printf("\n");
 
-        if (op >= 0 && op <= 6) match = true;
+        if (op >= 0 && op <= 8) match = true;
         else {
             printf("operacao invalida\n");
             pausar();
@@ -76,6 +84,8 @@ int menu() {
 
     return op;
 }
+
+// FUNCIONARIOS
 int ler_file_func(dados_func func[TAM_FUNC], int qnt_func) {
     FILE *fp;
     fp = fopen("funcionarios.txt", "rt");
@@ -163,6 +173,51 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
     }
     sep(spc, bar);
 }
+
+// EMENTAS
+int ler_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
+    FILE *fp;
+    fp = fopen("ementas.txt", "rt");
+
+    if (fp != NULL) {
+        do {
+            if (qnt_ementa < TAM_EMENTA) {
+                fscanf(fp, "%[^;];%d.%d.%d;%[^;];%d;%[^;];%d;%[^;];%d;%[^;];%d\n",
+                ementa[qnt_ementa].dia_semana,
+                &ementa[qnt_ementa].dia, &ementa[qnt_ementa].mes, &ementa[qnt_ementa].ano,
+                ementa[qnt_ementa].peixe, &ementa[qnt_ementa].peixe_cal,
+                ementa[qnt_ementa].carne, &ementa[qnt_ementa].carne_cal,
+                ementa[qnt_ementa].dieta, &ementa[qnt_ementa].dieta_cal,
+                ementa[qnt_ementa].vegetariano, &ementa[qnt_ementa].vegetariano_cal);
+
+                qnt_ementa++;
+            }
+        } while (!feof(fp));
+        fclose(fp);
+        printf("dados lidos com sucesso!\n");
+    }
+
+    return qnt_ementa;
+}
+void guardar_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
+    FILE *fp;
+    fp = fopen("ementas.txt", "wt");
+
+    if (fp != NULL) {
+        for (int i = 0; i < qnt_ementa; i++) {
+            fprintf(fp, "%s;%d.%d.%d;%s;%d;%s;%d;%s;%d;%s;%d\n",
+            ementa[i].dia_semana,
+            ementa[i].dia, ementa[i].mes, ementa[i].ano,
+            ementa[i].peixe, ementa[i].peixe_cal,
+            ementa[i].carne, ementa[i].carne_cal,
+            ementa[i].dieta, ementa[i].dieta_cal,
+            ementa[i].vegetariano, ementa[i].vegetariano_cal);
+        }
+        fclose(fp);
+    }
+
+    printf("dados guardados!\n");
+}
 int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     if (qnt_ementa < TAM_EMENTA) {
         int dmes[TAM_EMENTA] = { 6, 7, 8, 9, 10, 11, 12 };
@@ -203,16 +258,20 @@ void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
         return;
     }
 
-    const int spc = 12, bar = 6;
+    const int spc = 12, bar = 10;
     char str[12];
 
     sep(spc, bar);
     printf("| %-*s ", spc, "dia semana");
     printf("| %-*s ", spc, "dia");
     printf("| %-*s ", spc, "peixe");
+    printf("| %-*s ", spc, "cal");
     printf("| %-*s ", spc, "carne");
+    printf("| %-*s ", spc, "cal");
     printf("| %-*s ", spc, "dieta");
-    printf("| %-*s |\n", spc, "vegetariano");
+    printf("| %-*s ", spc, "cal");
+    printf("| %-*s ", spc, "vegetariano");
+    printf("| %-*s |\n", spc, "cal");
     sep(spc, bar);
     for (int i = 0; i < qnt_ementa; i++) {
         printf("| %-*s ", spc, ementa[i].dia_semana);
@@ -221,9 +280,16 @@ void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
         printf("| %*s ", spc, str);
 
         printf("| %-*s ", spc, ementa[i].peixe);
+        printf("| %*d ", spc, ementa[i].peixe_cal);
+
         printf("| %-*s ", spc, ementa[i].carne);
+        printf("| %*d ", spc, ementa[i].carne_cal);
+
         printf("| %-*s ", spc, ementa[i].dieta);
-        printf("| %-*s |\n", spc, ementa[i].vegetariano);
+        printf("| %*d ", spc, ementa[i].dieta_cal);
+
+        printf("| %-*s ", spc, ementa[i].vegetariano);
+        printf("| %*d |\n", spc, ementa[i].vegetariano_cal);
     }
     sep(spc, bar);
 }

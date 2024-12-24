@@ -1,8 +1,8 @@
 /**
  * @file profunc.c
  * @author Ricardo Araújo (a21150@alunos.ipca.pt)
- * @brief 
- * @version 0.1
+ * @brief funções auxiliares do "main.c"
+ * @version 0.2
  * @date 24-12-2024
  * 
  * @copyright Copyright (c) 2024

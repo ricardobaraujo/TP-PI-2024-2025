@@ -1,8 +1,8 @@
 /**
  * @file profunc.h
  * @author Ricardo Araújo (a21150@alunos.ipca.pt)
- * @brief 
- * @version 0.1
+ * @brief cabeçalho do projeto
+ * @version 0.2
  * @date 24-12-2024
  * 
  * @copyright Copyright (c) 2024
@@ -42,10 +42,16 @@ typedef struct {
 
 // funções "main.c"
 int menu();
+
+// FUNCIONARIOS
 int ler_file_func(dados_func func[TAM_FUNC], int qnt_func);
 void guardar_file_func(dados_func func[TAM_FUNC], int qnt_func);
 int introduzir_func(dados_func func[TAM_FUNC], int qnt_func);
 void listar_func(dados_func func[TAM_FUNC], int qnt_func);
+
+// EMENTAS
+int ler_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
+void guardar_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 
