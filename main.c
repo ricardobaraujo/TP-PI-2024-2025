@@ -13,7 +13,8 @@
 
 int main() {
     dados_func func[TAM_FUNC];
-    int op, qnt_func = 0;
+    dados_ementa ementa[TAM_EMENTA];
+    int op, qnt_func = 0, qnt_ementa = 0;
     bool term = false;
 
     while (!term) {
@@ -30,6 +31,12 @@ int main() {
                 break;
             case 4:
                 listar_func(func, qnt_func);
+                break;
+            case 5:
+                qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
+                break;
+            case 6:
+                listar_ementas(ementa, qnt_ementa);
                 break;
             default:
                 printf("programa terminado!\n\n");
@@ -52,13 +59,15 @@ int menu() {
         printf("1 - Ler dados dos funcionarios do ficheiro\n");
         printf("2 - Guardar dados dos funcionarios no ficheiro\n");
         printf("3 - Introduzir funcionario\n");
-        printf("4 - Listar todos os funcionarios\n");;
+        printf("4 - Listar todos os funcionarios\n");
+        printf("5 - Introduzir ementa\n");
+        printf("6 - Listar todas as ementas\n");
         printf("0 - Sair\n");
         printf("opção? ");
         scanf("%d", &op);
         printf("\n");
 
-        if (op >= 0 && op <= 4) match = true;
+        if (op >= 0 && op <= 6) match = true;
         else {
             printf("operacao invalida\n");
             pausar();
@@ -151,6 +160,70 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
         p3 = func[i].telefone % 1000;
         snprintf(str, sizeof(str), "%d %d %d", p1, p2, p3);
         printf("| %*s |\n", spc, str);
+    }
+    sep(spc, bar);
+}
+int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
+    if (qnt_ementa < TAM_EMENTA) {
+        int dmes[TAM_EMENTA] = { 6, 7, 8, 9, 10, 11, 12 };
+        char dsem[TAM_EMENTA][QTC] = {
+            "2feira", "3feira", "4feira", "5feira", "6feira", "sabado", "domingo"
+        };
+
+        strcpy(ementa[qnt_ementa].dia_semana, dsem[qnt_ementa]);
+        printf("%s ", ementa[qnt_ementa].dia_semana);
+
+        ementa[qnt_ementa].dia = dmes[qnt_ementa];
+        ementa[qnt_ementa].mes = 1;
+        ementa[qnt_ementa].ano = 2025;
+        printf("( %d.%d.%d )\n", ementa[qnt_ementa].dia,
+        ementa[qnt_ementa].mes, ementa[qnt_ementa].ano);
+
+        lerString("\n  prato peixe: ", ementa[qnt_ementa].peixe);
+        ementa[qnt_ementa].peixe_cal = lerInteiro("  calorias: ");
+
+        lerString("\n  prato carne: ", ementa[qnt_ementa].carne);
+        ementa[qnt_ementa].carne_cal = lerInteiro("  calorias: ");
+
+        lerString("\n  prato dieta: ", ementa[qnt_ementa].dieta);
+        ementa[qnt_ementa].dieta_cal = lerInteiro("  calorias: ");
+
+        lerString("\n  prato vegetariano: ", ementa[qnt_ementa].vegetariano);
+        ementa[qnt_ementa].vegetariano_cal = lerInteiro("  calorias: ");
+
+        qnt_ementa++;
+    }
+    else printf("Ementas para a semana completas!\n");
+
+    return qnt_ementa;
+}
+void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
+    if (qnt_ementa <= 0) {
+        printf("ainda sem ementas para a semana!\n");
+        return;
+    }
+
+    const int spc = 12, bar = 6;
+    char str[12];
+
+    sep(spc, bar);
+    printf("| %-*s ", spc, "dia semana");
+    printf("| %-*s ", spc, "dia");
+    printf("| %-*s ", spc, "peixe");
+    printf("| %-*s ", spc, "carne");
+    printf("| %-*s ", spc, "dieta");
+    printf("| %-*s |\n", spc, "vegetariano");
+    sep(spc, bar);
+    for (int i = 0; i < qnt_ementa; i++) {
+        printf("| %-*s ", spc, ementa[i].dia_semana);
+
+        snprintf(str, sizeof(str), "%d.%d.%d", ementa[i].dia, ementa[i].mes, ementa[i].ano);
+        printf("| %*s ", spc, str);
+
+        printf("| %-*s ", spc, ementa[i].peixe);
+        printf("| %-*s ", spc, ementa[i].carne);
+        printf("| %-*s ", spc, ementa[i].dieta);
+        printf("| %-*s |\n", spc, ementa[i].vegetariano);
     }
     sep(spc, bar);
 }
