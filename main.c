@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @author Ricardo Araújo (a21150@alunos.ipca.pt)
- * @brief 
+ * @brief teste
  * @version 0.1
  * @date 24-12-2024
  * 
