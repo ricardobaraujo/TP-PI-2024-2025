@@ -150,15 +150,17 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
     }
 
     const int spc = 15, bar = 4;
+    int rep = ((spc + 2) * bar) + bar - 1;
+
     int p1, p2, p3;
     char str[12];
 
-    sep(spc, bar);
+    sep(rep);
     printf("| %-*s ", spc, "ID");
     printf("| %-*s ", spc, "Nome");
     printf("| %-*s ", spc, "NIF");
     printf("| %-*s |\n", spc, "Telefone");
-    sep(spc, bar);
+    sep(rep);
     for (int i = 0; i < qnt_func; i++) {
         printf("| %*d ", spc, func[i].id);
         printf("| %-*s ", spc, func[i].nome);
@@ -175,7 +177,7 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
         snprintf(str, sizeof(str), "%d %d %d", p1, p2, p3);
         printf("| %*s |\n", spc, str);
     }
-    sep(spc, bar);
+    sep(rep);
 }
 
 // EMENTAS
@@ -262,39 +264,46 @@ void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
         return;
     }
 
-    const int spc = 12, bar = 10;
+    int spc[3] = { 10, 19, 5 };
+    int bar[3] = { 2, 4, 4 };
+    int sum = 0, rep = 0;
+
+    for (int i = 0; i < 3; i++)
+        rep += ((spc[i] + 2) * bar[i]) + bar[i];
+    rep--;
+
     char str[12];
 
-    sep(spc, bar);
-    printf("| %-*s ", spc, "dia semana");
-    printf("| %-*s ", spc, "dia");
-    printf("| %-*s ", spc, "peixe");
-    printf("| %-*s ", spc, "cal");
-    printf("| %-*s ", spc, "carne");
-    printf("| %-*s ", spc, "cal");
-    printf("| %-*s ", spc, "dieta");
-    printf("| %-*s ", spc, "cal");
-    printf("| %-*s ", spc, "vegetariano");
-    printf("| %-*s |\n", spc, "cal");
-    sep(spc, bar);
+    sep(rep);
+    printf("| %-*s ", spc[0], "dia semana");
+    printf("| %-*s ", spc[0], "dia");
+    printf("| %-*s ", spc[1], "peixe");
+    printf("| %-*s ", spc[2], "cal");
+    printf("| %-*s ", spc[1], "carne");
+    printf("| %-*s ", spc[2], "cal");
+    printf("| %-*s ", spc[1], "dieta");
+    printf("| %-*s ", spc[2], "cal");
+    printf("| %-*s ", spc[1], "vegetariano");
+    printf("| %-*s |\n", spc[2], "cal");
+    sep(rep);
     for (int i = 0; i < qnt_ementa; i++) {
-        printf("| %-*s ", spc, ementa[i].dia_semana);
+        printf("| %-*s ", spc[0], ementa[i].dia_semana);
 
         snprintf(str, sizeof(str), "%d.%d.%d", ementa[i].dia, ementa[i].mes, ementa[i].ano);
-        printf("| %*s ", spc, str);
+        printf("| %*s ", spc[0], str);
 
-        printf("| %-*s ", spc, ementa[i].peixe);
-        printf("| %*d ", spc, ementa[i].peixe_cal);
+        printf("| %-*s ", spc[1], ementa[i].peixe);
+        printf("| %*d ", spc[2], ementa[i].peixe_cal);
 
-        printf("| %-*s ", spc, ementa[i].carne);
-        printf("| %*d ", spc, ementa[i].carne_cal);
+        printf("| %-*s ", spc[1], ementa[i].carne);
+        printf("| %*d ", spc[2], ementa[i].carne_cal);
 
-        printf("| %-*s ", spc, ementa[i].dieta);
-        printf("| %*d ", spc, ementa[i].dieta_cal);
+        printf("| %-*s ", spc[1], ementa[i].dieta);
+        printf("| %*d ", spc[2], ementa[i].dieta_cal);
 
-        printf("| %-*s ", spc, ementa[i].vegetariano);
-        printf("| %*d |\n", spc, ementa[i].vegetariano_cal);
+        printf("| %-*s ", spc[1], ementa[i].vegetariano);
+        printf("| %*d |\n", spc[2], ementa[i].vegetariano_cal);
     }
-    sep(spc, bar);
+    sep(rep);
 }
 

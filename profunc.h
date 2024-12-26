@@ -61,5 +61,5 @@ float lerReal(char questao[]);
 void lerString(char questao[], char resposta[]);
 bool existe(dados_func func[TAM_FUNC], int qnt_func, int codigo);
 void pausar();
-void sep(int spc, int bar);
+void sep(int rep);
 

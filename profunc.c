@@ -55,8 +55,7 @@ void pausar() {
     printf("\nENTER para continuar...");
     getchar();
 }
-void sep(int spc, int bar) {
-    int rep = ((spc + 2) * bar) + bar - 1;
+void sep(int rep) {
     printf("+");
     for (int i = 0; i < rep; i++)
         printf("-");
