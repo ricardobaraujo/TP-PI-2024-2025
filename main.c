@@ -42,7 +42,7 @@ int main() {
                 qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
                 break;
             case 8:
-                listar_ementas(ementa, qnt_ementa);
+                listar_ementa(ementa, qnt_ementa);
                 break;
             default:
                 printf("programa terminado!\n\n");
@@ -256,7 +256,7 @@ int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
 
     return qnt_ementa;
 }
-void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
+void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     if (qnt_ementa <= 0) {
         printf("ainda sem ementas para a semana!\n");
         return;

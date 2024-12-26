@@ -53,7 +53,7 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func);
 int ler_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 void guardar_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
-void listar_ementas(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
+void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 
 // funções "profunc.c"
 int lerInteiro(char questao[]);
