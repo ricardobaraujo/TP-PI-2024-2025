@@ -62,22 +62,26 @@ int menu() {
     while (!match) {
         system("clear");
         printf("M E N U\n");
-        printf("1 - Ler dados dos funcionarios do ficheiro\n");
-        printf("2 - Guardar dados dos funcionarios no ficheiro\n");
-        printf("3 - Introduzir funcionario\n");
-        printf("4 - Listar todos os funcionarios\n");
-        printf("5 - Ler dados das ementas do ficheiro\n");
-        printf("6 - Guardar dados das ementas no ficheiro\n");
-        printf("7 - Introduzir ementa\n");
-        printf("8 - Listar todas as ementas\n");
-        printf("0 - Sair\n");
-        printf("opção? ");
+        printf("\n 0 - Sair\n");
+
+        printf("\nFuncionarios\n");
+        printf(" 1 - Ler dados dos funcionarios do ficheiro\n");
+        printf(" 2 - Guardar dados dos funcionarios no ficheiro\n");
+        printf(" 3 - Introduzir funcionario\n");
+        printf(" 4 - Listar todos os funcionarios\n");
+
+        printf("\nEmentas\n");
+        printf(" 5 - Ler dados das ementas do ficheiro\n");
+        printf(" 6 - Guardar dados das ementas no ficheiro\n");
+        printf(" 7 - Introduzir ementa\n");
+        printf(" 8 - Listar todas as ementas\n");
+        printf("\n opção? ");
         scanf("%d", &op);
         printf("\n");
 
         if (op >= 0 && op <= 8) match = true;
         else {
-            printf("operacao invalida\n");
+            printf("operacao invalida");
             pausar();
         }
     }

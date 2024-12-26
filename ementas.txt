@@ -1,2 +1,7 @@
-2feira;6.1.2025;filetes;100;vitela;150;douradinhos;80;tofu;100
-3feira;7.1.2025;bacalhau;120;medalhao;160;salada;70;hamburguer;140
+2feira;6.1.2025;salmao;100;file mignon;100;frango;100;risoto;100
+3feira;7.1.2025;bacalhau;100;churrasco;100;sopa;100;hamburguer;100
+4feira;8.1.2025;ceviche;100;strogonoff;100;salada;100;curry;100
+5feira;9.1.2025;caldeirada;100;ragu;100;wrap;100;torta;100
+6feira;10.1.2025;pescada;100;bife;100;smoothie;100;esparguete;100
+sabado;11.1.2025;tilapia;100;almondegas;100;tilapia;100;shakshuka;100
+domingo;12.1.2025;tartar;100;carne sol;100;omelete;100;panqueca;100
