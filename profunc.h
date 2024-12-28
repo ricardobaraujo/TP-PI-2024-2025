@@ -42,6 +42,8 @@ typedef struct {
 
 // funções "main.c"
 int menu();
+int menu_func();
+int menu_ementa();
 
 // FUNCIONARIOS
 int ler_file_func(dados_func func[TAM_FUNC], int qnt_func);
@@ -59,7 +61,6 @@ void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa);
 int lerInteiro(char questao[]);
 float lerReal(char questao[]);
 void lerString(char questao[], char resposta[]);
-bool existe(dados_func func[TAM_FUNC], int qnt_func, int codigo);
+bool existe_func(dados_func func[TAM_FUNC], int qnt_func, int codigo);
 void pausar();
 void sep(int rep);
-

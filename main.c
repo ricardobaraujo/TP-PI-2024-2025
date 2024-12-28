@@ -14,42 +14,62 @@
 int main() {
     dados_func func[TAM_FUNC];
     dados_ementa ementa[TAM_EMENTA];
-    int op, qnt_func = 0, qnt_ementa = 0;
-    bool term = false;
+    int op, op_aux, qnt_func = 0, qnt_ementa = 0;
+    bool term = false, term_aux;
 
     while (!term) {
+        term_aux = false;
         op = menu();
-        switch (op) {
-            case 1:
-                qnt_func = ler_file_func(func, qnt_func);
-                break;
-            case 2:
-                guardar_file_func(func, qnt_func);
-                break;
-            case 3:
-                qnt_func = introduzir_func(func, qnt_func);
-                break;
-            case 4:
-                listar_func(func, qnt_func);
-                break;
-            case 5:
-                qnt_ementa = ler_file_ementa(ementa, qnt_ementa);
-                break;
-            case 6:
-                guardar_file_ementa(ementa, qnt_ementa);
-                break;
-            case 7:
-                qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
-                break;
-            case 8:
-                listar_ementa(ementa, qnt_ementa);
-                break;
-            default:
-                printf("programa terminado!\n\n");
-        }
 
-        if (op != 0) pausar();
-        else term = true;
+        if (op == 1) {
+            while (!term_aux) {
+                op_aux = menu_func();
+                switch (op_aux) {
+                    case 1:
+                        qnt_func = ler_file_func(func, qnt_func);
+                        break;
+                    case 2:
+                        guardar_file_func(func, qnt_func);
+                        break;
+                    case 3:
+                        qnt_func = introduzir_func(func, qnt_func);
+                        break;
+                    case 4:
+                        listar_func(func, qnt_func);
+                        break;
+                    default:
+                        term_aux = true;
+                }
+                if (op_aux != 0) pausar();
+            }
+        }
+        else if (op == 2) {
+            while (!term_aux) {
+                op_aux = menu_ementa();
+                switch (op_aux) {
+                    case 1:
+                        qnt_ementa = ler_file_ementa(ementa, qnt_ementa);
+                        break;
+                    case 2:
+                        guardar_file_ementa(ementa, qnt_ementa);
+                        break;
+                    case 3:
+                        qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
+                        break;
+                    case 4:
+                        listar_ementa(ementa, qnt_ementa);
+                        break;
+                    default:
+                        term_aux = true;
+                }
+                if (op_aux != 0) pausar();
+            }
+        }
+        else {
+            printf("programa terminado!\n\n");
+            term = true;
+        }
+        
     }
 
     return 0;
@@ -62,24 +82,71 @@ int menu() {
     while (!match) {
         system("clear");
         printf("M E N U\n");
-        printf("\n 0 - Sair\n");
 
-        printf("\nFuncionarios\n");
+        printf(" 1 - Funcionarios\n");
+        printf(" 2 - Ementas\n");
+        printf(" 3 - Senhas\n");
+        printf(" 0 - Sair\n");
+
+        printf(" opção: ");
+        scanf("%d", &op);
+        printf("\n");
+
+        if (op >= 0 && op <= 2) match = true;
+        else {
+            printf("operacao invalida");
+            pausar();
+        }
+    }
+
+    return op;
+}
+int menu_func() {
+    int op;
+    bool match = false;
+
+    while (!match) {
+        system("clear");
+        printf("FUNCIONARIOS\n");
+
         printf(" 1 - Ler dados dos funcionarios do ficheiro\n");
         printf(" 2 - Guardar dados dos funcionarios no ficheiro\n");
         printf(" 3 - Introduzir funcionario\n");
         printf(" 4 - Listar todos os funcionarios\n");
+        printf(" 0 - Voltar atras\n");
 
-        printf("\nEmentas\n");
-        printf(" 5 - Ler dados das ementas do ficheiro\n");
-        printf(" 6 - Guardar dados das ementas no ficheiro\n");
-        printf(" 7 - Introduzir ementa\n");
-        printf(" 8 - Listar todas as ementas\n");
-        printf("\n opção? ");
+        printf(" opção: ");
         scanf("%d", &op);
         printf("\n");
 
-        if (op >= 0 && op <= 8) match = true;
+        if (op >= 0 && op <= 4) match = true;
+        else {
+            printf("operacao invalida");
+            pausar();
+        }
+    }
+
+    return op;
+}
+int menu_ementa() {
+    int op;
+    bool match = false;
+
+    while (!match) {
+        system("clear");
+        printf("EMENTAS\n");
+
+        printf(" 1 - Ler dados das ementas do ficheiro\n");
+        printf(" 2 - Guardar dados das ementas no ficheiro\n");
+        printf(" 3 - Introduzir ementa\n");
+        printf(" 4 - Listar todas as ementas\n");
+        printf(" 0 - Voltar atras\n");
+
+        printf(" opção: ");
+        scanf("%d", &op);
+        printf("\n");
+
+        if (op >= 0 && op <= 4) match = true;
         else {
             printf("operacao invalida");
             pausar();
@@ -101,15 +168,15 @@ int ler_file_func(dados_func func[TAM_FUNC], int qnt_func) {
                 fscanf(fp, "%d;%[^;];%d;%d\n",
                 &func[qnt_func].id, func[qnt_func].nome,
                 &func[qnt_func].nif, &func[qnt_func].telefone);
-                if (!existe(func, qnt_func, func[qnt_func].id)) qnt_func++;
+                if (!existe_func(func, qnt_func, func[qnt_func].id)) qnt_func++;
                 else match = true;
             }
         } while (!feof(fp));
         fclose(fp);
     }
 
-    if (!match) printf("dados lidos com sucesso!\n");
-    else printf("ERRO: não é possivel repetir o ID\n");
+    if (!match) printf("dados lidos com sucesso!");
+    else printf("ERRO: não é possivel repetir o ID");
 
     return qnt_func;
 }
@@ -131,7 +198,7 @@ void guardar_file_func(dados_func func[TAM_FUNC], int qnt_func) {
 int introduzir_func(dados_func func[TAM_FUNC], int qnt_func) {
     if (qnt_func < TAM_FUNC) {
         func[qnt_func].id = lerInteiro("ID: ");
-        if (!existe(func, qnt_func, func[qnt_func].id)) {
+        if (!existe_func(func, qnt_func, func[qnt_func].id)) {
             lerString("Nome: ", func[qnt_func].nome);
             func[qnt_func].nif = lerInteiro("NIF: ");
             func[qnt_func].telefone = lerInteiro("Telefone: ");
@@ -149,33 +216,38 @@ void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
         return;
     }
 
-    const int spc = 15, bar = 4;
-    int rep = ((spc + 2) * bar) + bar - 1;
+    int spc[3] = { 5, 25, 12 };
+    int bar[3] = { 1, 1, 2 };
+    int rep = 0;
+
+    for (int i = 0; i < 3; i++)
+        rep += ((spc[i] + 2) * bar[i]) + bar[i];
+    rep--;
 
     int p1, p2, p3;
     char str[12];
 
     sep(rep);
-    printf("| %-*s ", spc, "ID");
-    printf("| %-*s ", spc, "Nome");
-    printf("| %-*s ", spc, "NIF");
-    printf("| %-*s |\n", spc, "Telefone");
+    printf("| %-*s ", spc[0], "ID");
+    printf("| %-*s ", spc[1], "Nome");
+    printf("| %-*s ", spc[2], "NIF");
+    printf("| %-*s |\n", spc[2], "Telefone");
     sep(rep);
     for (int i = 0; i < qnt_func; i++) {
-        printf("| %*d ", spc, func[i].id);
-        printf("| %-*s ", spc, func[i].nome);
+        printf("| %*d ", spc[0], func[i].id);
+        printf("| %-*s ", spc[1], func[i].nome);
 
         p1 = func[i].nif / 1000000;
         p2 = (func[i].nif / 1000) % 1000;
         p3 = func[i].nif % 1000;
         snprintf(str, sizeof(str), "%d %d %d", p1, p2, p3);
-        printf("| %*s ", spc, str);
+        printf("| %*s ", spc[2], str);
 
         p1 = func[i].telefone / 1000000;
         p2 = (func[i].telefone / 1000) % 1000;
         p3 = func[i].telefone % 1000;
         snprintf(str, sizeof(str), "%d %d %d", p1, p2, p3);
-        printf("| %*s |\n", spc, str);
+        printf("| %*s |\n", spc[2], str);
     }
     sep(rep);
 }
@@ -185,6 +257,7 @@ int ler_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     FILE *fp;
     fp = fopen("ementas.txt", "rt");
 
+    qnt_ementa = 0;
     if (fp != NULL) {
         do {
             if (qnt_ementa < TAM_EMENTA) {
@@ -195,13 +268,13 @@ int ler_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
                 ementa[qnt_ementa].carne, &ementa[qnt_ementa].carne_cal,
                 ementa[qnt_ementa].dieta, &ementa[qnt_ementa].dieta_cal,
                 ementa[qnt_ementa].vegetariano, &ementa[qnt_ementa].vegetariano_cal);
-
                 qnt_ementa++;
             }
         } while (!feof(fp));
         fclose(fp);
-        printf("dados lidos com sucesso!\n");
     }
+
+    printf("dados lidos com sucesso!");
 
     return qnt_ementa;
 }
@@ -266,7 +339,7 @@ void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
 
     int spc[3] = { 10, 19, 5 };
     int bar[3] = { 2, 4, 4 };
-    int sum = 0, rep = 0;
+    int rep = 0;
 
     for (int i = 0; i < 3; i++)
         rep += ((spc[i] + 2) * bar[i]) + bar[i];

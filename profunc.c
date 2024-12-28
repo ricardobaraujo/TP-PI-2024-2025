@@ -43,7 +43,7 @@ void lerString(char questao[], char resposta[]) {
         res = scanf("%[^\n]", resposta);
     } while (res == 0);
 }
-bool existe(dados_func func[TAM_FUNC], int qnt_func, int codigo) {
+bool existe_func(dados_func func[TAM_FUNC], int qnt_func, int codigo) {
     bool match = false;
     for (int i = 0; i < qnt_func; i++)
         if (func[i].id == codigo) match = true;
@@ -61,4 +61,3 @@ void sep(int rep) {
         printf("-");
     printf("+\n");
 }
-
