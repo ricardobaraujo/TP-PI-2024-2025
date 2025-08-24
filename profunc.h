@@ -17,6 +17,7 @@
 #define QTC 50
 #define TAM_FUNC 100
 #define TAM_EMENTA 7
+#define TAM_SENHA 200
 
 typedef struct {
     int id;
@@ -40,10 +41,17 @@ typedef struct {
     int vegetariano_cal;
 } dados_ementa;
 
+typedef struct {
+    int id;
+    char dia_semana[QTC];
+    char prato[QTC];
+} dados_senha;
+
 // funções "main.c"
 int menu();
 int menu_func();
 int menu_ementa();
+int menu_senha();
 
 // FUNCIONARIOS
 int ler_file_func(dados_func func[TAM_FUNC], int qnt_func);

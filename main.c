@@ -14,7 +14,9 @@
 int main() {
     dados_func func[TAM_FUNC];
     dados_ementa ementa[TAM_EMENTA];
-    int op, op_aux, qnt_func = 0, qnt_ementa = 0;
+    dados_senha senha[TAM_SENHA];
+    int qnt_func = 0, qnt_ementa = 0, qnt_senha = 0;
+    int op, op_aux;
     bool term = false, term_aux;
 
     while (!term) {
@@ -65,6 +67,28 @@ int main() {
                 if (op_aux != 0) pausar();
             }
         }
+        else if (op == 3) {
+            while (!term_aux) {
+                op_aux = menu_senha();
+                switch (op_aux) {
+                    case 1:
+                        qnt_ementa = ler_file_ementa(ementa, qnt_ementa);
+                        break;
+                    case 2:
+                        guardar_file_ementa(ementa, qnt_ementa);
+                        break;
+                    case 3:
+                        qnt_ementa = introduzir_ementa(ementa, qnt_ementa);
+                        break;
+                    case 4:
+                        listar_ementa(ementa, qnt_ementa);
+                        break;
+                    default:
+                        term_aux = true;
+                }
+                if (op_aux != 0) pausar();
+            }
+        }
         else {
             printf("programa terminado!\n\n");
             term = true;
@@ -92,7 +116,7 @@ int menu() {
         scanf("%d", &op);
         printf("\n");
 
-        if (op >= 0 && op <= 2) match = true;
+        if (op >= 0 && op <= 3) match = true;
         else {
             printf("operacao invalida");
             pausar();
@@ -155,6 +179,33 @@ int menu_ementa() {
 
     return op;
 }
+int menu_senha() {
+    int op;
+    bool match = false;
+
+    while (!match) {
+        system("clear");
+        printf("SENHAS\n");
+
+        printf(" 1 - Ler dados das senhas do ficheiro\n");
+        printf(" 2 - Guardar dados das senhas no ficheiro\n");
+        printf(" 3 - Introduzir senha\n");
+        printf(" 4 - Listar todas as senhas\n");
+        printf(" 0 - Voltar atras\n");
+
+        printf(" opção: ");
+        scanf("%d", &op);
+        printf("\n");
+
+        if (op >= 0 && op <= 4) match = true;
+        else {
+            printf("operacao invalida");
+            pausar();
+        }
+    }
+
+    return op;
+}
 
 // FUNCIONARIOS
 int ler_file_func(dados_func func[TAM_FUNC], int qnt_func) {
@@ -193,7 +244,7 @@ void guardar_file_func(dados_func func[TAM_FUNC], int qnt_func) {
         fclose(fp);
     }
 
-    printf("dados guardados!\n");
+    printf("dados guardados!");
 }
 int introduzir_func(dados_func func[TAM_FUNC], int qnt_func) {
     if (qnt_func < TAM_FUNC) {
@@ -204,15 +255,15 @@ int introduzir_func(dados_func func[TAM_FUNC], int qnt_func) {
             func[qnt_func].telefone = lerInteiro("Telefone: ");
             qnt_func++;
         }
-        else printf("ERRO: não é possivel repetir o ID!\n");
+        else printf("\nERRO: não é possivel repetir o ID!");
     }
-    else printf("Limite maximo de funcionarios atingido!\n");
+    else printf("Limite maximo de funcionarios atingido!");
 
     return qnt_func;
 }
 void listar_func(dados_func func[TAM_FUNC], int qnt_func) {
     if (qnt_func <= 0) {
-        printf("ainda sem funcionarios!\n");
+        printf("ainda sem funcionarios!");
         return;
     }
 
@@ -295,7 +346,7 @@ void guardar_file_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
         fclose(fp);
     }
 
-    printf("dados guardados!\n");
+    printf("dados guardados!");
 }
 int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     if (qnt_ementa < TAM_EMENTA) {
@@ -327,13 +378,13 @@ int introduzir_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
 
         qnt_ementa++;
     }
-    else printf("Ementas para a semana completas!\n");
+    else printf("Ementas para a semana completas!");
 
     return qnt_ementa;
 }
 void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     if (qnt_ementa <= 0) {
-        printf("ainda sem ementas para a semana!\n");
+        printf("ainda sem ementas para a semana!");
         return;
     }
 
@@ -379,4 +430,3 @@ void listar_ementa(dados_ementa ementa[TAM_EMENTA], int qnt_ementa) {
     }
     sep(rep);
 }
-
