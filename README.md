@@ -35,3 +35,8 @@ To build and run the project, use the provided `makefile`:
 
 ```sh
 make
+```
+
+## Grade
+
+This project received a grade of **19 out of 20**.
